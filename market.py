@@ -3,20 +3,17 @@ import os
 import pandas as pd
 import yfinance as yf
 
+from utils import *
 
 # Cedears names and ratios
 df_cedears = pd.read_csv('cedears.csv', sep=',', names=['ticker_us', 'name', '_', 'ticker_ar', 'ratio'])
 df_cedears['ticker_ar'] = df_cedears['ticker_ar'].str.strip()
 df_cedears['ticker_us'] = df_cedears['ticker_us'].str.strip()
 
-date_fmt = '%Y-%m-%d'
-
 date_now = pd.to_datetime("now")
 str_today = date_now.strftime(date_fmt)
 str_lastd = (date_now - pd.Timedelta(days=1)).strftime(date_fmt)
 str_lastw = (date_now - pd.Timedelta(days=7)).strftime(date_fmt)
-
-debug = True
 
 # Some utils
 def get_db_path(ticker):
@@ -121,7 +118,9 @@ def get_price(ticker, date):
             print(data)
         price = 0
 
-    print('Price', ticker, date, path, price)
+    if debug:
+        print('Price', ticker, date, path, price)
+
     return price
 
 
@@ -146,6 +145,11 @@ def get_price_cedear(ticker, date=None):
     ticker_ar = f'{ticker}.BA'
     ticker_us = info['ticker_us'][0].strip()
 
+    try:
+        ratio = float(info['ratio'][0])
+    except:
+        ratio = 1
+
     if date is not None:
         price_ar = get_price(ticker_ar, date)
         price_us = get_price(ticker_us, date)
@@ -163,7 +167,10 @@ def get_price_cedear(ticker, date=None):
     price_ar_change_1d = (price_ar - price_ar_1d) / price_ar_1d if price_ar_1d > 0 else 0
     price_us_change_1d = (price_us - price_us_1d) / price_us_1d if price_us_1d > 0 else 0
 
-    ccl = price_ar / (info['ratio'] * price_us)
+    try:
+        ccl = (ratio * price_ar) / price_us
+    except ZeroDivisionError:
+        ccl = 0
 
     return {
         'price_ar':           price_ar,
@@ -192,7 +199,7 @@ def get_price_arstock(ticker, date=None):
     price_ar_change_1d = (price_ar - price_ar_1d) / price_ar_1d if price_ar_1d > 0 else 0
 
     return {
-        'price_ar': price_ar,
+        'price_ar':           price_ar,
         'price_ar_change_1d': price_ar_change_1d,
         'price_us':           0,
         'price_us_change_1d': 0,
@@ -213,8 +220,15 @@ def get_prices_at_date(tickers, date=None):
         
         d['ticker'] = ticker
 
-        rows.append(d) ##[ticker, price_ar, price_us, price_ar_change_1d, price_us_change_1d])
+        rows.append(d)
 
-    return pd.DataFrame(rows, columns=['ticker', 'price_ar', 'price_us', 'price_ar_change_1d', 'price_us_change_1d'])
+        cols=[
+            'ticker', 
+            'price_ar', 
+            'price_us', 
+            'price_ar_change_1d', 
+            'price_us_change_1d',
+            'ccl',
+            ]
 
-
+    return pd.DataFrame(rows, columns=cols)

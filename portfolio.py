@@ -3,10 +3,9 @@ import datetime
 import numpy as np
 import pandas as pd
 
+from utils import *
 from market import get_prices_at_date
 
-
-date_fmt = '%Y-%m-%d'
 
 class Portfolio:
 
@@ -16,7 +15,16 @@ class Portfolio:
         self.db = None
         self.load_txs()
 
-        self.tickers = list(set([ (t, k) for t, k in self.df_txs[['ticker', 'kind']].values if k!='BONO']))
+        if debug:
+            self.tickers = [ 
+            ('AAPL', 'CAR'), 
+            ('KO', 'CAR'),
+            ('TSLA', 'CAR'),
+            ('YPFD', 'AR'),
+            ('CELU', 'AR'),
+            ]
+        else:
+            self.tickers = list(set([ (t, k) for t, k in self.df_txs[['ticker', 'kind']].values if k!='BONO']))
 
         self.start_date = self.df_txs.index[0]
         self.today  = pd.to_datetime("now")
@@ -27,8 +35,10 @@ class Portfolio:
 
     def load_txs(self):
 
-        df_bm  = pd.read_csv('txs_bm.txt',  names=['date', 'ticker', 'kind', 'op', 'n', 'price', 'total'])
-        df_ieb = pd.read_csv('txs_ieb.txt', names=['date', 'ticker', 'kind', 'op', 'n', 'price', 'total'])
+        cols = ['date', 'ticker', 'kind', 'op', 'n', 'price', 'total']
+
+        df_bm  = pd.read_csv('txs_bm.txt',  names=cols)
+        df_ieb = pd.read_csv('txs_ieb.txt', names=cols)
 
         df_bm ['broker'] = 'BM'
         df_ieb['broker'] = 'IEB'
@@ -106,33 +116,41 @@ class Portfolio:
 
             # tpc = date_pd - pd.Timedelta(days=days_avg)
 
-            rows.append([ticker, total_n, ppc, int(days_avg), total_p])
+            rows.append([ticker, self.get_kind(ticker), total_n, ppc, int(days_avg), total_p])
 
-        cols = ['ticker', 'n', 'ppc', 'days_avg', 'total_ar']
+        cols = ['ticker', 'kind', 'n', 'ppc', 'days_avg', 'total_ar']
 
-        return pd.DataFrame(rows,columns=cols)
+        return pd.DataFrame(rows, columns=cols)
 
 
+    def get_kind(self, ticker):
+        for t, k in self.tickers:
+            if ticker == t:
+                return k
+        return None
 
     def load(self):
         self.db = self.get_portfolio_at_date()
 
     def update_market(self):
-        now = datetime.datetime.now()
-        if self.last_market_update is None or (now - self.last_market_update).seconds > 1800:
-            self.df_market = get_prices_at_date(self.tickers, None)
-            print(self.df_market)
-            self.last_market_update = now
+        self.df_market = get_prices_at_date(self.tickers, '2023-07-03')
+        # now = datetime.datetime.now()
+        # if self.last_market_update is None or (now - self.last_market_update).seconds > 1800:
+        #     self.df_market = get_prices_at_date(self.tickers, None)
+        #     print(self.df_market)
+        #     self.last_market_update = now
 
 
     def update(self):
 
-        #print('Portfolio: ')
-        #print(self.db)
+        if debug:
+            print('Portfolio: ')
+            print(self.db)
 
         self.update_market()
-        #print('Market:')
-        #print(self.df_market)
+        if debug:
+            print('Market:')
+            print(self.df_market)
 
         self.dbm = pd.merge(self.db, self.df_market)
 
@@ -152,8 +170,6 @@ class Portfolio:
 
         self.dbm.loc[:,'fraction'] = self.dbm['total_ar_now'] / total_ar_now
         
-        #print(self.dbm)
-
         self.total_dict = {
             'ticker': 'Total',
             'n': None,
@@ -168,6 +184,6 @@ class Portfolio:
             'diff_pp': total_diff / total_ar,
             'diff_pp_1mo': None,
             'fraction': 1,
-            #'ccl': None,
+            'ccl': 0,
         }
 
