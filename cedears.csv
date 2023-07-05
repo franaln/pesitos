@@ -1,0 +1,65 @@
+AAPL,Apple Inc.,NASDAQ,AAPL,10
+AMD,Advanced Micro Devices Inc.,NASDAQ,AMD,10
+AMZN,Amazon.Com Inc.,NASDAQ,AMZN,144
+BA,The Boeing Company,NYSE,BA,6
+BABA,Alibaba Group Holding Limited,NYSE,BABA,9
+BAC,Bank Of America Corporation,NYSE,BA.C,2
+BBD,Banco Bradesco S.A.,NYSE,BBD,1
+BHP,Bhp Group Ltd,NYSE,BHP,2
+BIOX,Bioceres Crop Solutions Corp.,NYSE American,BIOX,0.5
+BITF,Bitfarms Ltd.,NASDAQ GM,BITF,0.2
+BRFS,BRF S.A.,NYSE,BRFS,0.333333333
+BRKB,Berkshire Hathaway Inc., NYSE,BRKB,22
+C,Citigroup Inc,NYSE,C,3
+CAAP,Corporación America Airports S.A.,NYSE,CAAP,0.25
+COIN,Coinbase Global Inc,NASDAQ,COIN,27
+CVX,Chevron Corp.,NYSE,CVX,8
+DESP,Despegar.Com Corp.,NYSE,DESP,1
+DIS,The Walt Disney Co.,NYSE,DISN,12
+E,Eni Spa, NYSE,E,4
+EBAY,Ebay Inc., NASDAQ,EBAY,2
+GE,General Electric Co.,NYSE,GE,8
+GLOB,Globant S.A.,NYSE,GLOB,18
+GOLD,Barrick Gold Corp,NYSE,GOLD,1
+GOOGL,Alphabet Inc., NASDAQ,GOOGL,58
+INTC,Intel Corporation,NASDAQ,INTC,5
+JNJ,Johnson & Johnson,NYSE,JNJ,15
+JPM,J.P. Morgan & Chase Co.,NYSE,JPM,5
+KO,The Coca Cola Company,NYSE,KO,5
+LLY,Eli Lilly and Company,NYSE,LLY,8
+MCD,Mac Donalds,NYSE,MCD,24
+MELI,Mercadolibre Inc., NASDAQ,MELI,60
+META,Meta Platforms Inc,NASDAQ,META,24
+MSFT,Microsoft Corp.,NASDAQ,MSFT,30
+NFLX,Netflix Inc.,NASDAQ,NFLX,16
+NIO,NIO Inc.,NYSE,NIO,4
+NVDA,Nvidia Corporation,NASDAQ,NVDA,24
+PBR,Petrobras,NYSE,PBR,1
+PEP,Pepsico,NASDAQ,PEP,6
+PFE,Pfizer,NYSE,PFE,2
+PG,Procter,NYSE,PG,5
+QCOM,Qualcomm Inc.,NASDAQ,QCOM,11
+RBLX,Roblox Corp.,NYSE,RBLX,2
+SLB,Schlumberger Ltd,NYSE,SLB,3
+SPOT,Spotify Technology S.A.,NYSE,SPOT,28
+TS,Tenaris,NYSE,TEN,1
+TSLA,Tesla Inc.,NASDAQ,TSLA,15
+TSM,Taiwan Semiconductor Manufacturing,NYSE,TSM,9
+TX,Ternium S.A.,NYSE,TXR,2
+UBER,Uber Technologies Inc.,NYSE,UBER,2
+UNH,UnitedHealth Group Inc.,NYSE,UNH,33
+V,Visa Inc,NYSE,V,18
+VALE,Vale S.A.,NYSE,VALE,2
+VZ,Verizon Communications Inc.,NYSE,VZ,2
+WMT,Walmart Inc.,NYSE,WMT,6
+XOM,Exxon Mobil Corporation,NYSE,XOM,5
+
+SPY,SPDR S&P 500 ETF Trust,NYSE Arca,SPY,20
+QQQ,Invesco QQQ Trust Series 1,Nasdaq,QQQ,20
+IWM,iShares Russell 2000 ETF,NYSE Arca,IWM,10
+EEM,iShares MSCI Emerging Markets ETF,NYSE Arca,EEM,5
+XLF,Financial Select Sector SPDR Fund,NYSE Arca,XLF,2
+XLE,Energy Select Sector SPDR Fund,NYSE Arca,XLE,2
+DIA,SPDR Dow Jones Industrial Average ETF Trust,NYSE Arca,DIA,20
+EWZ,Ishares Msci Brazil ETF,NYSE Arca,EWZ,2
+ARKK,ARK Innovation ETF,NYSE Arca,ARKK,10
